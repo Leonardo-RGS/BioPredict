@@ -1,10 +1,22 @@
-import os
-import matplotlib
-matplotlib.use('Agg')
- 
-os.environ["OMP_NUM_THREADS"] = "1"
-os.environ["MKL_NUM_THREADS"] = "1"
-os.environ["OPENBLAS_NUM_THREADS"] = "1"
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Classificação da biodegradabilidade molecular (QSAR Biodegradation).
+
+Script adaptado do notebook Tiamat(2).ipynb para execução em HPC.
+- Lê data/biodeg.csv (ou caminho informado em --data).
+- Separa treino/teste com StratifiedGroupKFold (10 partições; primeira partição).
+- Otimiza KNN, Regressão Logística, Árvore de Decisão, Floresta Aleatória
+  e Naive Bayes Gaussiano com Optuna/TPE.
+- Usa AP (Average Precision), considerando RB como classe positiva.
+- Salva estudos Optuna (SQLite), resultados, modelos e gráficos.
+
+Exemplo:
+    python tiamat_hpc.py --data data/biodeg.csv --n-trials 100 --output resultados
+
+O script usa paralelismo dentro dos estimadores e mantém a validação cruzada
+serial (n_jobs=1) para evitar paralelismo aninhado e excesso de processos.
+"""
 
 import argparse
 import json
@@ -12,6 +24,13 @@ import os
 import random
 import warnings
 from pathlib import Path
+
+# Limita threads de bibliotecas numéricas por processo; evita oversubscription.
+# Ajuste OMP_NUM_THREADS/MKL_NUM_THREADS no script de submissão, se necessário.
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("NUMEXPR_NUM_THREADS", "1")
 
 import joblib
 import matplotlib
@@ -39,8 +58,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
-STORAGE_URL = "sqlite:///nome_legal.db"
-
 warnings.filterwarnings("default")
 optuna.logging.set_verbosity(optuna.logging.INFO)
 
@@ -55,12 +72,37 @@ NOMES_COLUNAS = [
 ]
 ATRIBUTOS = NOMES_COLUNAS[:-1]
 ALVO = "class"
-SEMENTE_ALEATORIA = 73701
+SEMENTE_PADRAO = 73701
 
 # Variável definida após a construção dos folds, para que o KNN nunca tente
 # usar mais vizinhos do que o número de amostras disponível em um fold.
 MAX_VIZINHOS_CV = 800
 N_JOBS_MODELO = 1
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Otimização e avaliação de modelos para biodegradabilidade."
+    )
+    parser.add_argument("--data", default="data/biodeg.csv",
+                        help="Caminho do arquivo CSV separado por ponto e vírgula.")
+    parser.add_argument("--output", default="resultados_hpc",
+                        help="Diretório para resultados, modelos e bancos SQLite.")
+    parser.add_argument("--n-trials", type=int, default=100,
+                        help="Número de trials Optuna por algoritmo (padrão: 100).")
+    parser.add_argument("--seed", type=int, default=SEMENTE_PADRAO,
+                        help="Semente aleatória (padrão: 73701).")
+    parser.add_argument("--n-jobs-modelo", type=int, default=None,
+                        help="CPUs usadas internamente pelos estimadores. "
+                             "Padrão: SLURM_CPUS_PER_TASK ou 1.")
+    parser.add_argument("--cv-folds", type=int, default=5,
+                        help="Número de folds na validação cruzada interna.")
+    parser.add_argument("--split-folds", type=int, default=10,
+                        help="Número de folds para separação treino/teste.")
+    parser.add_argument("--timeout", type=int, default=None,
+                        help="Tempo máximo de otimização por modelo, em segundos.")
+    return parser.parse_args()
+
 
 def sugere_pca(trial):
     """Escolhe se aplica PCA e, em caso afirmativo, sua variância explicada."""
@@ -103,7 +145,7 @@ def cria_instancia_logreg(trial):
         ),
         "max_iter": 5000,
         "n_jobs": N_JOBS_MODELO,
-        "random_state": SEMENTE_ALEATORIA,
+        "random_state": SEMENTE_ALEATORIA_GLOBAL,
     }
     modelo = LogisticRegression(**parametros)
     return Pipeline([
@@ -133,7 +175,7 @@ def cria_instancia_arvore(trial):
         "min_impurity_decrease": trial.suggest_float(
             "reducao_impureza_min", 0.0, 0.1
         ),
-        "random_state": SEMENTE_ALEATORIA,
+        "random_state": SEMENTE_ALEATORIA_GLOBAL,
     }
     modelo = DecisionTreeClassifier(**parametros)
     return Pipeline([
@@ -159,7 +201,7 @@ def cria_instancia_floresta(trial):
         "max_samples": trial.suggest_float("fracao_amostras", 0.3, 1.0),
         "bootstrap": True,
         "n_jobs": N_JOBS_MODELO,
-        "random_state": SEMENTE_ALEATORIA,
+        "random_state": SEMENTE_ALEATORIA_GLOBAL,
     }
     modelo = RandomForestClassifier(**parametros)
     return Pipeline([
@@ -190,6 +232,8 @@ INSTANCIAS = {
     "Floresta_Aleatoria": cria_instancia_floresta,
     "Naive_Bayes_Gaussiano": cria_instancia_gaussnb,
 }
+SEMENTE_ALEATORIA_GLOBAL = SEMENTE_PADRAO
+
 
 def carregar_dados(caminho):
     caminho = Path(caminho)
@@ -314,10 +358,10 @@ def avaliar_modelo(nome, modelo, X_teste, y_teste, output_dir):
 
 def main():
     global MAX_VIZINHOS_CV, N_JOBS_MODELO
-    global SEMENTE_ALEATORIA, X_treino_global, y_treino_global
+    global SEMENTE_ALEATORIA_GLOBAL, X_treino_global, y_treino_global
 
     args = parse_args()
-    SEMENTE_ALEATORIA = args.seed
+    SEMENTE_ALEATORIA_GLOBAL = args.seed
     random.seed(args.seed)
     np.random.seed(args.seed)
 

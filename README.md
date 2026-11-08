@@ -89,18 +89,22 @@ Em clusters que utilizam o gerenciador de tarefas SLURM, pode ser utilizado um a
 
 ```bash
 #!/bin/bash
-#SBATCH --job-name=biodegradabilidade
-#SBATCH --output=biodeg_%j.out
-#SBATCH --error=biodeg_%j.err
-#SBATCH --time=24:00:00
-#SBATCH --nodes=1
+#SBATCH --job-name=Tiamat_Optuna_HPC
 #SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --partition=cpu
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=16G
+#SBATCH --nodelist=work1
+#SBATCH --time=00-01:00:00
+#SBATCH --output=logs/saida_%j.out
+#SBATCH --error=logs/erro_%j.err
+#SBATCH --mail-type=BEGIN,END,FAIL
 
-module load python
+ 
+# Execução correta chamando o python:
 
-python tiamat_optuna_hpc.py \
+python3 CAMINHO/tiamat_optuna_hpc.py \
     --data data/biodeg.csv \
     --n-trials 150 \
     --output resultados_hpc
@@ -109,12 +113,12 @@ python tiamat_optuna_hpc.py \
 Para submeter o trabalho:
 
 ```bash
-sbatch tiamat.slurm
+sbatch tiamat.sh
 ```
 
-Os recursos de processamento e memória devem ser ajustados de acordo com as configurações e políticas do cluster utilizado.
+Os recursos de processamento e memória devem ser ajustados de acordo com as configurações e regras do HPC utilizado.
 
-## Resultados gerados
+### Resultados gerados
 
 Durante a execução, são armazenados:
 
@@ -130,14 +134,6 @@ Durante a execução, são armazenados:
 - Resumo da execução em formato JSON.
 
 Esses resultados permitem comparar os algoritmos e investigar quais configurações apresentam melhor desempenho na classificação da biodegradabilidade molecular.
-
-## Como citar
-
-Caso este projeto seja utilizado em trabalhos acadêmicos ou pesquisas, recomenda-se citar a base de dados utilizada e o artigo científico associado:
-
-MANSOURI, Kamel; RINGSTED, Tine; BALLABIO, Davide; TODESCHINI, Roberto; CONSONNI, Viviana. QSAR biodegradation. *UCI Machine Learning Repository*, 2013. DOI: https://doi.org/10.24432/C5H60M.
-
-MANSOURI, Kamel et al. Quantitative structure-activity relationship models for ready biodegradability of chemicals. *Journal of Chemical Information and Modeling*, v. 53, n. 4, p. 867-878, 2013. DOI: https://doi.org/10.1021/ci4000213.
 
 ## Referências e ferramentas
 
@@ -155,4 +151,8 @@ MANSOURI, Kamel et al. Quantitative structure-activity relationship models for r
 
 **Disciplina:** Aprendizado de Máquina.
 
-**Docente:** Prof. Dr. Daniel Roberto Cassar.
+## Agradecimentos
+
+**Docente:** Prof. Dr. Daniel Roberto Cassar, por lecionar tão bem
+
+**
