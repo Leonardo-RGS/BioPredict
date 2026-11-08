@@ -1,0 +1,11 @@
+modelo,parametro,importancia
+Arvore_Decisao,min_exemplos_folha,0.42773577473958835
+Arvore_Decisao,reducao_impureza_min,0.2913331852730647
+Arvore_Decisao,max_nos_folha,0.09527423426267839
+Arvore_Decisao,profundidade_max,0.08097124644275538
+Arvore_Decisao,min_exemplos_split,0.07617161871176596
+Arvore_Decisao,max_atributos,0.021249373877174963
+Arvore_Decisao,usar_pca,0.002880171590588383
+Arvore_Decisao,estrategia_divisao,0.002880171590588383
+Arvore_Decisao,criterio,0.0015042235117955173
+Arvore_Decisao,variancia_pca,0.0

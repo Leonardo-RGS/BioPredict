@@ -1,0 +1,19 @@
+{
+  "arquivo_dados": "/home/leonardo2610065/aprendizado_de_maquina/tiamat/data/biodeg.csv",
+  "n_amostras": 1055,
+  "n_atributos": 41,
+  "distribuicao_classes": {
+    "NRB": 699,
+    "RB": 356
+  },
+  "n_grupos": 1039,
+  "n_treino": 949,
+  "n_teste": 106,
+  "seed": 73701,
+  "n_trials_por_modelo": 150,
+  "n_jobs_modelo": 15,
+  "melhor_modelo_cv": "Floresta_Aleatoria",
+  "melhor_ap_cv": 0.8958543182159587,
+  "melhor_modelo_teste": "Floresta_Aleatoria",
+  "melhor_ap_teste": 0.9243879941688871
+}

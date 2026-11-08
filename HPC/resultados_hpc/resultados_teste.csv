@@ -1,0 +1,7 @@
+modelo,average_precision_teste,tn,fp,fn,tp
+Floresta_Aleatoria,0.9243879941688871,65,5,3,33
+Regressao_Logistica,0.9190271641552274,64,6,6,30
+KNN,0.8991566157845883,59,11,5,31
+Naive_Bayes_Gaussiano,0.7997321387231103,36,34,3,33
+Arvore_Decisao,0.7846646464877374,64,6,10,26
+Baseline,0.33962264150943394,70,0,36,0

@@ -1,0 +1,11 @@
+modelo,parametro,importancia
+Floresta_Aleatoria,min_exemplos_split,0.29343860453525017
+Floresta_Aleatoria,num_max_atributos,0.254726189826365
+Floresta_Aleatoria,min_exemplos_folha,0.1353125142709139
+Floresta_Aleatoria,num_arvores,0.10582744429672762
+Floresta_Aleatoria,profundidade_max,0.09916876577857298
+Floresta_Aleatoria,fracao_amostras,0.08692264435914887
+Floresta_Aleatoria,criterio,0.016780850238310836
+Floresta_Aleatoria,peso_classes,0.004275701731448995
+Floresta_Aleatoria,usar_pca,0.0035472849632615855
+Floresta_Aleatoria,variancia_pca,0.0

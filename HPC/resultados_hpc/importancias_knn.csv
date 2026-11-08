@@ -1,0 +1,6 @@
+modelo,parametro,importancia
+KNN,num_vizinhos,0.9148932206851385
+KNN,usar_pca,0.038618724138845206
+KNN,peso,0.02926535156658573
+KNN,metrica,0.017222703609430696
+KNN,variancia_pca,0.0

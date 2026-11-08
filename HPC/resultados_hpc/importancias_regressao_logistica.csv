@@ -1,0 +1,7 @@
+modelo,parametro,importancia
+Regressao_Logistica,C,0.9816475929414461
+Regressao_Logistica,class_weight,0.007094374523870182
+Regressao_Logistica,usar_pca,0.005974267354282031
+Regressao_Logistica,penalty,0.004461650518518359
+Regressao_Logistica,solver,0.0008221146618831988
+Regressao_Logistica,variancia_pca,0.0

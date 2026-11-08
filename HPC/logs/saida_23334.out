@@ -1,0 +1,64 @@
+Carregando dados...
+Dimensão após remoção de ausentes: (1055, 42)
+Distribuição das classes: {'NRB': 699, 'RB': 356}
+Grupos únicos: 1039
+Treino: 949 | Teste: 106
+CPUs por estimador: 15
+Limite de n_neighbors: 758
+
+======================================================================
+Otimizando: KNN
+======================================================================
+Melhor AP CV: 0.862189
+Melhores parâmetros: {'num_vizinhos': 38, 'peso': 'distance', 'metrica': 'manhattan', 'usar_pca': False}
+
+======================================================================
+Otimizando: Regressao_Logistica
+======================================================================
+Melhor AP CV: 0.871727
+Melhores parâmetros: {'C': 1.650929963784225, 'penalty': 'l1', 'solver': 'saga', 'class_weight': None, 'usar_pca': False}
+
+======================================================================
+Otimizando: Arvore_Decisao
+======================================================================
+Melhor AP CV: 0.812098
+Melhores parâmetros: {'criterio': 'entropy', 'estrategia_divisao': 'random', 'profundidade_max': 65, 'min_exemplos_split': 10, 'min_exemplos_folha': 7, 'max_atributos': None, 'max_nos_folha': 27, 'reducao_impureza_min': 0.003291739921777141, 'usar_pca': False}
+
+======================================================================
+Otimizando: Floresta_Aleatoria
+======================================================================
+Melhor AP CV: 0.895854
+Melhores parâmetros: {'num_arvores': 390, 'criterio': 'log_loss', 'profundidade_max': 349, 'min_exemplos_split': 4, 'min_exemplos_folha': 1, 'num_max_atributos': 0.3260321368944623, 'peso_classes': None, 'fracao_amostras': 0.8362999875317098, 'usar_pca': False}
+
+======================================================================
+Otimizando: Naive_Bayes_Gaussiano
+======================================================================
+Melhor AP CV: 0.774457
+Melhores parâmetros: {'suavizacao_variancia': 4.9945191089588884e-11, 'usar_pca': True, 'variancia_pca': 0.9773767788138492}
+
+Avaliando modelos no conjunto de teste...
+Avaliando: Baseline
+Avaliando: KNN
+Avaliando: Regressao_Logistica
+Avaliando: Arvore_Decisao
+Avaliando: Floresta_Aleatoria
+Avaliando: Naive_Bayes_Gaussiano
+
+Resultados da otimização (CV):
+               modelo  melhor_ap_cv  numero_trial                                                                                                                                                                                                                                       parametros  trials_completos
+   Floresta_Aleatoria      0.895854           147 {"num_arvores": 390, "criterio": "log_loss", "profundidade_max": 349, "min_exemplos_split": 4, "min_exemplos_folha": 1, "num_max_atributos": 0.3260321368944623, "peso_classes": null, "fracao_amostras": 0.8362999875317098, "usar_pca": false}               150
+  Regressao_Logistica      0.871727           103                                                                                                                                             {"C": 1.650929963784225, "penalty": "l1", "solver": "saga", "class_weight": null, "usar_pca": false}               150
+                  KNN      0.862189            60                                                                                                                                                              {"num_vizinhos": 38, "peso": "distance", "metrica": "manhattan", "usar_pca": false}               150
+       Arvore_Decisao      0.812098            69  {"criterio": "entropy", "estrategia_divisao": "random", "profundidade_max": 65, "min_exemplos_split": 10, "min_exemplos_folha": 7, "max_atributos": null, "max_nos_folha": 27, "reducao_impureza_min": 0.003291739921777141, "usar_pca": false}               150
+Naive_Bayes_Gaussiano      0.774457           127                                                                                                                                          {"suavizacao_variancia": 4.9945191089588884e-11, "usar_pca": true, "variancia_pca": 0.9773767788138492}               150
+
+Resultados no conjunto de teste:
+               modelo  average_precision_teste  tn  fp  fn  tp
+   Floresta_Aleatoria                 0.924388  65   5   3  33
+  Regressao_Logistica                 0.919027  64   6   6  30
+                  KNN                 0.899157  59  11   5  31
+Naive_Bayes_Gaussiano                 0.799732  36  34   3  33
+       Arvore_Decisao                 0.784665  64   6  10  26
+             Baseline                 0.339623  70   0  36   0
+
+Arquivos salvos em: /home/leonardo2610065/aprendizado_de_maquina/tiamat/resultados_hpc

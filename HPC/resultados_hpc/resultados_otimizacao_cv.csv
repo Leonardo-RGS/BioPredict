@@ -1,0 +1,6 @@
+modelo,melhor_ap_cv,numero_trial,parametros,trials_completos
+Floresta_Aleatoria,0.8958543182159587,147,"{""num_arvores"": 390, ""criterio"": ""log_loss"", ""profundidade_max"": 349, ""min_exemplos_split"": 4, ""min_exemplos_folha"": 1, ""num_max_atributos"": 0.3260321368944623, ""peso_classes"": null, ""fracao_amostras"": 0.8362999875317098, ""usar_pca"": false}",150
+Regressao_Logistica,0.871727297883081,103,"{""C"": 1.650929963784225, ""penalty"": ""l1"", ""solver"": ""saga"", ""class_weight"": null, ""usar_pca"": false}",150
+KNN,0.8621887371694745,60,"{""num_vizinhos"": 38, ""peso"": ""distance"", ""metrica"": ""manhattan"", ""usar_pca"": false}",150
+Arvore_Decisao,0.8120983348210693,69,"{""criterio"": ""entropy"", ""estrategia_divisao"": ""random"", ""profundidade_max"": 65, ""min_exemplos_split"": 10, ""min_exemplos_folha"": 7, ""max_atributos"": null, ""max_nos_folha"": 27, ""reducao_impureza_min"": 0.003291739921777141, ""usar_pca"": false}",150
+Naive_Bayes_Gaussiano,0.774457072735836,127,"{""suavizacao_variancia"": 4.9945191089588884e-11, ""usar_pca"": true, ""variancia_pca"": 0.9773767788138492}",150

@@ -1,0 +1,4 @@
+modelo,parametro,importancia
+Naive_Bayes_Gaussiano,variancia_pca,0.9282640860588448
+Naive_Bayes_Gaussiano,suavizacao_variancia,0.0707218043331094
+Naive_Bayes_Gaussiano,usar_pca,0.001014109608045863
