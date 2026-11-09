@@ -1,4 +1,4 @@
-![Cabecalho](Figuras/Cabecalho.png)
+![Cabecalho](figuras/Cabecalho.png)
 
 # Análise da biodegradabilidade de moléculas com algoritmos preditivos
 
@@ -56,6 +56,38 @@ A escolha é motivada pelo desbalanceamento entre as classes do conjunto de dado
 
 ## Estrutura do projeto
 
+
+## Estrutura do projeto
+
+```text
+BioPredict/
+│
+├── HPC/                              # Arquivos relacionados à execução em ambiente HPC
+│
+├── data/                             # Conjunto de dados utilizado no projeto
+│
+├── figuras/                          # Figuras utilizadas no README
+│
+├── .gitignore                        # Arquivos e diretórios ignorados pelo Git
+│
+├── Biodeg_previsao.ipynb             # Notebook principal de análise e modelagem
+│
+├── LICENSE                           # Licença de uso do projeto
+│
+├── README.md                         # Documentação do projeto
+│
+├── biodegradabilidade_arvore.db      # Banco SQLite da otimização da Árvore de Decisão
+│
+├── biodegradabilidade_floresta.db    # Banco SQLite da otimização da Floresta Aleatória
+│
+├── biodegradabilidade_gaussNB.db     # Banco SQLite da otimização do Naive Bayes Gaussiano
+│
+├── biodegradabilidade_knn.db         # Banco SQLite da otimização do KNN
+│
+├── biodegradabilidade_regressão.db   # Banco SQLite da otimização da Regressão Logística
+│
+└── requisitos_projeto_final_ML.todo  # Requisitos e tarefas do projeto
+```
 
 O diretório `data/` deve conter o arquivo `biodeg.csv`. Os resultados são gerados durante a execução do script.
 
@@ -153,6 +185,4 @@ Esses resultados permitem comparar os algoritmos e investigar quais configuraç�
 
 ## Agradecimentos
 
-**Docente:** Prof. Dr. Daniel Roberto Cassar, por lecionar tão bem
-
-**
+**Docente:** Prof. Dr. Daniel Roberto Cassar, ppela dedicação, paciência e por compartilhar seu conhecimento de forma tão leve e didática. Suas aulas fizeram toda a diferença no nosso aprendizado!
