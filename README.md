@@ -56,9 +56,6 @@ A escolha é motivada pelo desbalanceamento entre as classes do conjunto de dado
 
 ## Estrutura do projeto
 
-
-## Estrutura do projeto
-
 ```text
 BioPredict/
 │
@@ -98,7 +95,7 @@ O repositório pode ser instalado clonando o repositório ou realizando o downlo
 Instale com:
 
 ```bash
-pip install numpy pandas scikit-learn optuna joblib matplotlib
+pip install numpy pandas scikit-learn optuna joblib matplotlib seaborn
 ```
 
 Para executar o notebook, também é necessário instalar o Jupyter:
@@ -186,3 +183,54 @@ Esses resultados permitem comparar os algoritmos e investigar quais configuraç�
 ## Agradecimentos
 
 **Docente:** Prof. Dr. Daniel Roberto Cassar, ppela dedicação, paciência e por compartilhar seu conhecimento de forma tão leve e didática. Suas aulas fizeram toda a diferença no nosso aprendizado!
+
+## Anexo
+
+### Descritores moleculares
+
+1. SpMax_L: Maior autovalor da matriz de Laplace.
+2. J_Dz(e): Índice semelhante ao de Balaban, calculado a partir da matriz de Barysz ponderada pela eletronegatividade de Sanderson.
+3. nHM: Número de átomos pesados (átomos diferentes de hidrogênio).
+4. F01[N-N]: Frequência de ligações N–N a uma distância topológica de 1.
+5. F04[C-N]: Frequência de pares C–N a uma distância topológica de 4.
+6. NssssC: Número de átomos do tipo ssssC.
+7. nCb-: Número de átomos de carbono C(sp²) substituídos em anéis benzênicos.
+8. C%: Porcentagem de átomos de carbono.
+9. nCp: Número de átomos de carbono primários terminais C(sp³).
+10. nO: Número de átomos de oxigênio.
+11. F03[C-N]: Frequência de pares C–N a uma distância topológica de 3.
+12. SdssC: Soma dos estados E dos átomos do tipo dssC.
+13. HyWi_B(m): Índice semelhante ao de Hyper-Wiener (função logarítmica), calculado a partir da matriz de Burden ponderada pela massa.
+14. LOC: Índice de centralidade de Lopping.
+15. SM6_L: Momento espectral de ordem 6 da matriz de Laplace.
+16. F03[C-O]: Frequência de pares C–O a uma distância topológica de 3.
+17. Me: Eletronegatividade média de Sanderson dos átomos, normalizada em relação ao carbono.
+18. Mi: Potencial médio de primeira ionização, normalizado em relação ao carbono.
+19. nN-N: Número de grupos hidrazina.
+20. nArNO2: Número de grupos nitro aromáticos.
+21. nCRX3: Número de grupos CRX3.
+22. SpPosA_B(p): Soma espectral positiva normalizada da matriz de Burden ponderada pela polarizabilidade.
+23. nCIR: Número de ciclos (anéis) na estrutura molecular.
+24. B01[C-Br]: Presença ou ausência de ligação C–Br a uma distância topológica de 1.
+25. B03[C-Cl]: Presença ou ausência de ligação C–Cl a uma distância topológica de 3.
+26. N-073: Grupos Ar₂NH / Ar₃N / Ar₂N-Al / R..N..R.
+27. SpMax_A: Maior autovalor da matriz de adjacência (índice de Lovász–Pelikan).
+28. Psi_i_1d: Índice de pseudoconectividade do estado intrínseco — tipo 1d.
+29. B04[C-Br]: Presença ou ausência de ligação C–Br a uma distância topológica de 4.
+30. SdO: Soma dos estados E dos átomos do tipo dO.
+31. TI2_L: Segundo índice de Mohar da matriz de Laplace.
+32. nCrt: Número de átomos de carbono terciários C(sp³) pertencentes a anéis.
+33. C-026: Grupo estrutural R–CX–R.
+34. F02[C-N]: Frequência de pares C–N a uma distância topológica de 2.
+35. nHDon: Número de átomos doadores de ligações de hidrogênio (N e O).
+36. SpMax_B(m): Maior autovalor da matriz de Burden ponderada pela massa.
+37. Psi_i_A: Índice de pseudoconectividade do estado intrínseco — média do tipo S.
+38. nN: Número de átomos de nitrogênio.
+39. SM6_B(m): Momento espectral de ordem 6 da matriz de Burden ponderada pela massa.
+40. nArCOOR: Número de grupos ésteres aromáticos.
+41. nX: Número de átomos de halogênios.
+
+Classe experimental:
+
+- RB (Readily Biodegradable): Prontamente biodegradável.
+- NRB (Not Readily Biodegradable): Não prontamente biodegradável.
